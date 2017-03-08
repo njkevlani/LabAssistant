@@ -1,3 +1,5 @@
+import com.sun.corba.se.spi.activation.Server;
+
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -14,11 +16,11 @@ import java.util.ArrayList;
 //Process table + btn here
 public class ServerThreads extends Thread {
     Socket client;
-    ArrayList brothers;
+    ArrayList<ServerThreads> brothers;
     JFrame mainFrame;
     processPanel panel;
 
-    ServerThreads(Socket s, ArrayList c, JFrame frame){
+    ServerThreads(Socket s, ArrayList<ServerThreads> c, JFrame frame){
         client = s;
         brothers = c;
         mainFrame = frame;
@@ -89,6 +91,7 @@ public class ServerThreads extends Thread {
 
         }
         brothers.remove(this);
+        System.out.println(this.getName() + " user left");
         mainFrame.remove(panel);
         mainFrame.revalidate();
     }

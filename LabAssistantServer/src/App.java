@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class App  {
     public static void main(String[] args) throws Exception {
-        ArrayList clients = new ArrayList();
+        ArrayList<ServerThreads> clients = new ArrayList<ServerThreads>();
         ServerSocket ss = new ServerSocket(7878);
         Socket s = null;
 

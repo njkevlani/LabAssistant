@@ -22,7 +22,10 @@ public class ClientProcessThread extends Thread {
             BufferedReader br;
 
             while(running){
-                p = Runtime.getRuntime().exec("ps -el --sort=-pcpu"); //ps -e for linux systems //ps -el --sort=-pcpu | head -n 10
+                if(System.getProperty("os.name").toLowerCase().indexOf("win")>= 0)
+                    p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\"+"tasklist.exe"); //Windows BS
+                else
+                    p = Runtime.getRuntime().exec("ps -el --sort=-pcpu"); //ps -e for linux systems //ps -el --sort=-pcpu | head -n 10
                 br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
                 //while((line = br.readLine()) != null){
@@ -30,7 +33,8 @@ public class ClientProcessThread extends Thread {
                     out.println(br.readLine());
                 }
                 Thread.sleep(5000);
-                //System.out.println("again");
+                //System.out.println("
+                // again");
             }
 
         }
