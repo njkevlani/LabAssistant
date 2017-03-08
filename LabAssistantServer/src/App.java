@@ -1,6 +1,7 @@
 //http://stackoverflow.com/questions/54686/how-to-get-a-list-of-current-open-windows-process-with-java
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class App  {
         JFrame mainFrame = new JFrame("Lab Assistant Sertver");
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setUndecorated(true);
+        mainFrame.setLayout(new FlowLayout());
         mainFrame.setVisible(true);
 
         while(true){

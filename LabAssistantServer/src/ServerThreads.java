@@ -35,21 +35,28 @@ public class ServerThreads extends Thread {
                 in = client.getInputStream();
                 brin = new BufferedReader(new InputStreamReader(in));
                 //out = new DataOutputStream(client.getOutputStream());
-                String line;
+                String line=null;
                 String [][] processes = new String[9][];
                 //while((line = brin.readLine()) != null ){
                 //header
-                String[] head = brin.readLine().trim().replaceAll(" +"," ").split(" ");
+                String[] head = null;
+                if(brin != null)
+                    line = brin.readLine();
+                if(line != null)
+                    head = line.trim().replaceAll(" +"," ").split(" ");
                 //System.out.println(head.length);
 //                for(String st : head){
 //                    System.out.println(st);
 //                }
-                for(int i=0;i<9;i++){
+                for(int i=0;i<9 && brin != null;i++){
                     line = brin.readLine();
+                    if(line != null)
                     processes[i] = line.trim().replaceAll(" +"," ").split(" ");
-                    if(line == null)
+                    else
                         flag = false;
                 }
+                if(brin == null)
+                    flag = false;
                 if(flag){
 //                    for(String[] st1 : processes){
 //                        for(String st2 : st1)
@@ -69,7 +76,7 @@ public class ServerThreads extends Thread {
 //                    }
                     if(panel != null)
                         mainFrame.remove(panel);
-                    panel = new processPanel(client.getInetAddress().getHostAddress(),head,processes);
+                    panel = new processPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
                     mainFrame.add(panel);
                     mainFrame.revalidate();
                     System.out.println(this.getName());
@@ -82,6 +89,7 @@ public class ServerThreads extends Thread {
 
         }
         brothers.remove(this);
-
+        mainFrame.remove(panel);
+        mainFrame.revalidate();
     }
 }
