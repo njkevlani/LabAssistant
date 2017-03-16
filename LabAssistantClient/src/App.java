@@ -19,6 +19,7 @@ public class App {
         Socket s = new Socket(serverIP,7878);
 
         //One thread to be made for screen casting remaining
+        ClientScreenShotThread t2 = new ClientScreenShotThread(s);
 
         //Process Thread
         PrintStream out = new PrintStream(s.getOutputStream());
@@ -38,6 +39,6 @@ public class App {
 //            temp.close();
 //        }
         t1.join();
-
+        t2.join();
     }
 }

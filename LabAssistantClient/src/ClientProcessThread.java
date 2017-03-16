@@ -22,6 +22,7 @@ public class ClientProcessThread extends Thread {
             BufferedReader br;
 
             while(running){
+                //decide wheather windows or linux
                 if(System.getProperty("os.name").toLowerCase().indexOf("win")>= 0)
                     p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\"+"tasklist.exe"); //Windows BS
                 else

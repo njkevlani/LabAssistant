@@ -76,11 +76,22 @@ public class ServerThreads extends Thread {
 //                        mainFrame.revalidate();
 //                        mainFrame.notifyAll();
 //                    }
-                    if(panel != null)
-                        mainFrame.remove(panel);
-                    panel = new processPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
-                    mainFrame.add(panel);
+
+                    //NOWNOWNOWNONW
+//
+//                    if(panel != null)
+//                        mainFrame.remove(panel);
+//                    panel = new processPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
+//                    mainFrame.add(panel);
+//                    mainFrame.revalidate();
+
+                    if(panel == null){
+                        panel = new processPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
+                        mainFrame.add(panel);
+                    }
+                    panel.createProcessPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
                     mainFrame.revalidate();
+
                     System.out.println(this.getName());
                 }
                 Thread.sleep(4000);
@@ -94,5 +105,6 @@ public class ServerThreads extends Thread {
         System.out.println(this.getName() + " user left");
         mainFrame.remove(panel);
         mainFrame.revalidate();
+        mainFrame.repaint();
     }
 }
