@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -8,36 +10,30 @@ import java.net.Socket;
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        //String serverIP = JOptionPane.showInputDialog("Enter Lab Teacher's IP address");
-        String serverIP = "127.0.0.1";
+        String serverIP = JOptionPane.showInputDialog(null,"Server Address","127.0.0.1");
 
         if(!FunctionNJK.checkIP(serverIP)){
             JOptionPane.showMessageDialog(null,"Not a valid IP, Exiting");
             return ;
         }
-        System.out.println("Connecting to " + serverIP + ":7878");
-        Socket s = new Socket(serverIP,7878);
 
-        //One thread to be made for screen casting remaining
-        ClientScreenShotThread t2 = new ClientScreenShotThread(s);
+        boolean running = true;
 
         //Process Thread
-        PrintStream out = new PrintStream(s.getOutputStream());
-        boolean running = true;
-        ClientProcessThread t1 = new ClientProcessThread(out,running);
+        ClientProcessThread t1 = new ClientProcessThread(serverIP);
 
-//problem when server is closed but client is not.
-//        while(true){
-//            Thread.sleep(4000);
-//            System.out.println("checking connection");
-//            InputStream temp = s.getInputStream();
-//            if(temp == null){
-//                System.out.println("bingo");
-//                running = false;
-//                break;
-//            }
-//            temp.close();
-//        }
+        //One thread to be made for screen casting remaining
+        ClientScreenShotThread t2 = new ClientScreenShotThread();
+
+
+        //Client window.
+        JFrame frame = new JFrame("Lab Assistant Client");
+        frame.add(new JLabel("Close this window to exit."));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300,100);
+        frame.setVisible(true);
+
+
         t1.join();
         t2.join();
     }

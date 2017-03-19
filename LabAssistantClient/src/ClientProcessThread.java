@@ -1,16 +1,25 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.Socket;
 
 /**
  * Created by nilesh on 7/3/17.
  */
 public class ClientProcessThread extends Thread {
+    String ip, port="7878";
+    Socket s;
     PrintStream out;
-    boolean running;
-    ClientProcessThread(PrintStream ps,boolean running){
-        out = ps;
-        this.running = running;
+    ClientProcessThread(String ip){
+        this.ip = ip;
+        System.out.println("Connecting to for processes" + ip + ":" + port);
+        try{
+            s = new Socket(ip,7878);
+            out = new PrintStream(s.getOutputStream());
+        }
+        catch (Exception ce){
+            ce.printStackTrace();
+        }
         start();
     }
 
@@ -21,7 +30,7 @@ public class ClientProcessThread extends Thread {
             Process p;
             BufferedReader br;
 
-            while(running){
+            while(true){
                 //decide wheather windows or linux
                 if(System.getProperty("os.name").toLowerCase().indexOf("win")>= 0)
                     p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\"+"tasklist.exe"); //Windows BS

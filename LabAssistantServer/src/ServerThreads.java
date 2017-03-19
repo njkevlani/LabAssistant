@@ -86,7 +86,7 @@ public class ServerThreads extends Thread {
 //                    mainFrame.revalidate();
 
                     if(panel == null){
-                        panel = new processPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);
+                        panel = new processPanel(client.getInetAddress().getHostAddress(),head,processes);
                         mainFrame.add(panel);
                     }
                     panel.createProcessPanel(client.getInetAddress().getHostAddress() + this.getName(),head,processes);

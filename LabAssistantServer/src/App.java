@@ -18,6 +18,8 @@ public class App  {
         //Create Frame here, pass to serverThread
         JFrame mainFrame = new JFrame("Lab Assistant Sertver");
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setSize(1280,720);
         mainFrame.setUndecorated(true);
         mainFrame.setLayout(new FlowLayout());
         mainFrame.setVisible(true);
