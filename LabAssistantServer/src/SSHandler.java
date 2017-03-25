@@ -7,12 +7,15 @@ import java.io.ObjectInputStream;
  */
 public class SSHandler extends Thread {
     JFrame frame;
+    JPanel panel;
     ObjectInputStream in;
     JLabel label;
 
     SSHandler(ObjectInputStream iis, JFrame fr) {
         in = iis;
         frame = fr;
+        panel = new JPanel();
+        frame.add(panel);
         //label = new JLabel("Screen loading...");
         start();
     }
@@ -26,15 +29,19 @@ public class SSHandler extends Thread {
 
 
             System.out.println("test");
-            label = new JLabel("Screen loading...");
-            label.setIcon(icon);
-            //frame.removeAll();
-            frame.add(label);
-            frame.revalidate();
+            label = new JLabel(icon);
+
+            panel.removeAll();
+            panel.add(label);
+
+//            frame.removeAll();
+            //frame.add(panel);
+            //frame.revalidate();
             //frame.repaint();
+            panel.revalidate();
 
             System.out.println("test2");
-            try{    sleep(6000);}
+            try{    sleep(1000);}
             catch (Exception e) {
                 /*************************************************************************/
                 /***do something that make this run method exit when SS Window closed.***/

@@ -42,7 +42,7 @@ public class ClientProcessThread extends Thread {
                 for(int i=0;i<10;i++){
                     out.println(br.readLine());
                 }
-                Thread.sleep(5000);
+                Thread.sleep(1000);
                 //System.out.println("
                 // again");
             }
